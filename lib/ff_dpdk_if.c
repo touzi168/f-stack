@@ -89,6 +89,8 @@
 
 #define BITS_PER_HEX 4
 
+#define KNI_MBUF_MAX 2048
+
 static int enable_kni;
 static int kni_accept;
 
@@ -411,7 +413,9 @@ init_mem_pool(void)
         (nb_rx_queue*RX_QUEUE_SIZE          +
         nb_ports*nb_lcores*MAX_PKT_BURST    +
         nb_ports*nb_tx_queue*TX_QUEUE_SIZE  +
-        nb_lcores*MEMPOOL_CACHE_SIZE),
+        nb_lcores*MEMPOOL_CACHE_SIZE +
+        KNI_MBUF_MAX +
+        nb_lcores*nb_ports*ARP_RING_SIZE),
         (unsigned)8192);
 
     unsigned socketid = 0;
